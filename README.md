@@ -1,4 +1,4 @@
-# prova frameworks para desenvolvimento web Unisinos - Registro de Recados:
+# prova frameworks para desenvolvimento web Unisinos - Registro de Vendas:
 
 ## 1 – Utilizando as bibliotecas e frameworks que foram estudados, desenvolva o que é solicitado:Registro de vendas.
 
