@@ -10,10 +10,8 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property float $sale_price
- * @property float $purchase_price
  * @property string $created_at
  * @property int $stock_quantity
- * @property int $customer_id
  *
  * @property Customer $customer
  */
@@ -33,12 +31,11 @@ class SalesItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'sale_price', 'purchase_price', 'stock_quantity', 'customer_id'], 'required'],
-            [['sale_price', 'purchase_price'], 'number'],
+            [['name', 'sale_price', 'stock_quantity'], 'required'],
+            [['sale_price'], 'number'],
             [['created_at'], 'safe'],
-            [['stock_quantity', 'customer_id'], 'integer'],
+            [['stock_quantity'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::class, 'targetAttribute' => ['customer_id' => 'id']],
         ];
     }
 
@@ -49,22 +46,10 @@ class SalesItem extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'sale_price' => 'Sale Price',
-            'purchase_price' => 'Purchase Price',
-            'created_at' => 'Created At',
-            'stock_quantity' => 'Stock Quantity',
-            'customer_id' => 'Customer ID',
+            'name' => 'Nome',
+            'sale_price' => 'Preço de Venda',
+            'created_at' => 'Criado Em',
+            'stock_quantity' => 'Quantidade em Estoque',
         ];
-    }
-
-    /**
-     * Gets query for [[Customer]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCustomer()
-    {
-        return $this->hasOne(Customer::class, ['id' => 'customer_id']);
     }
 }
