@@ -53,15 +53,15 @@ class Customer extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'company_name' => 'Company Name',
-            'trade_name' => 'Trade Name',
-            'address' => 'Address',
-            'address_number' => 'Address Number',
-            'credit_limit' => 'Credit Limit',
-            'cpf_cnpj' => 'Cpf Cnpj',
-            'rg_ie' => 'Rg Ie',
-            'phone_number' => 'Phone Number',
-            'city' => 'City',
+            'company_name' => 'Nome da Empresa',
+            'trade_name' => 'Nome Fantasia',
+            'address' => 'Endereço',
+            'address_number' => 'Número do Endereço',
+            'credit_limit' => 'Limite de Crédito',
+            'cpf_cnpj' => 'Cpf/Cnpj',
+            'rg_ie' => 'Rg/Ie',
+            'phone_number' => 'Número de Telefone',
+            'city' => 'Cidade',
         ];
     }
 
