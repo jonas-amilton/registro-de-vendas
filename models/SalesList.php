@@ -12,12 +12,11 @@ use Yii;
  * @property string $created_at
  * @property string $payment_type
  * @property int $monthly_installments
- * @property string $status
  * @property int $user_id
  * @property float $total_value
  * @property float|null $discount
  * @property float|null $increase
- * @property float $final_value
+ * @property int $sales_item_id
  *
  * @property Customer $customer
  * @property User $user
@@ -38,13 +37,15 @@ class SalesList extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['customer_id', 'payment_type', 'monthly_installments', 'status', 'user_id', 'total_value', 'final_value'], 'required'],
+            [['customer_id', 'payment_type', 'monthly_installments', 'user_id', 'sales_item_id', 'total_value'], 'required'],
             [['customer_id', 'monthly_installments', 'user_id'], 'integer'],
             [['created_at'], 'safe'],
-            [['total_value', 'discount', 'increase', 'final_value'], 'number'],
-            [['payment_type', 'status'], 'string', 'max' => 50],
+            [['total_value', 'discount', 'increase'], 'number'],
+            [['payment_type'], 'string', 'max' => 50],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::class, 'targetAttribute' => ['customer_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['sales_item_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['sales_item_id' => 'id']],
+            [['monthly_installments'], 'default', 'value' => 1],
         ];
     }
 
@@ -55,16 +56,15 @@ class SalesList extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'customer_id' => 'Customer ID',
-            'created_at' => 'Created At',
-            'payment_type' => 'Payment Type',
-            'monthly_installments' => 'Monthly Installments',
-            'status' => 'Status',
-            'user_id' => 'User ID',
-            'total_value' => 'Total Value',
-            'discount' => 'Discount',
-            'increase' => 'Increase',
-            'final_value' => 'Final Value',
+            'customer_id' => 'ID do Cliente',
+            'created_at' => 'Criado em',
+            'payment_type' => 'Tipo de Pagamento',
+            'monthly_installments' => 'Parcelas',
+            'user_id' => 'ID do Vendedor',
+            'total_value' => 'Total',
+            'discount' => 'Desconto',
+            'increase' => 'Juros',
+            'sales_item_id' => 'ID do Item de Venda',
         ];
     }
 
@@ -86,5 +86,15 @@ class SalesList extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    /**
+     * Gets query for [[SalesItem]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSalesItem()
+    {
+        return $this->hasOne(User::class, ['id' => 'sales_item_id']);
     }
 }
