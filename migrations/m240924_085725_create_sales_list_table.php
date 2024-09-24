@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%sales_list}}`.
  */
-class m240924_062735_create_sales_list_table extends Migration
+class m240924_085725_create_sales_list_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -19,6 +19,7 @@ class m240924_062735_create_sales_list_table extends Migration
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'payment_type' => $this->string(50)->notNull(),
             'monthly_installments' => $this->integer()->notNull(),
+            'installments' => $this->integer()->notNull(),
             'user_id' => $this->integer()->notNull(),
             'total_value' => $this->decimal(10, 2)->notNull(),
             'discount' => $this->decimal(10, 2)->defaultValue(0.00),
